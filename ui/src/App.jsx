@@ -76,40 +76,66 @@ class ProductAdd extends React.Component {
     return (
       <form name="productAdd" onSubmit={this.handleSubmit}>
         <div className="formContainer">
-        <div className="formCol">
-        Category:
-        <br />
-                <select id="menu" name="category">
-                  <option value="Shirts">Shirts</option>
-                  <option value="Jeans">Jeans</option>
-                  <option value="Jackets">Jackets</option>
-                  <option value="Sweaters">Sweaters</option>
-                  <option value="Accessories">Accessories</option>
-                </select>
-                <br />
-                <br />
-                Product Name:
-                <br />
-                <input type="text" name="productName" /> 
-                <br />
-              </div>
+          <div className="formCol">
+            Category:
+            <br />
+            <select id="menu" name="category">
+              <option value="Shirts">Shirts</option>
+              <option value="Jeans">Jeans</option>
+              <option value="Jackets">Jackets</option>
+              <option value="Sweaters">Sweaters</option>
+              <option value="Accessories">Accessories</option>
+            </select>
+            <br />
+            <br />
+            Product Name:
+            <br />
+            <input type="text" name="productName" />
+            <br />
+          </div>
               &nbsp;&nbsp;
-              <div className="formCol">
-              Price Per Unit:
-                <br />
-                <input type="text" name="pricePerUnit" defaultValue="$" />
-                <br /> 
-                <br />        
-              Image URL: 
-                <br />
-                <input type="text" name="imageUrl" />
-                <br />
-              </div>
-              </div>
-              <br />
-              <button style={buttonStyle} type="submit">Add Product</button>
+          <div className="formCol">
+            Price Per Unit:
+            <br />
+            <input type="text" name="pricePerUnit" defaultValue="$" />
+            <br />
+            <br />
+            Image URL:
+            <br />
+            <input type="text" name="imageUrl" />
+            <br />
+          </div>
+        </div>
+        <br />
+        <button style={buttonStyle} type="submit">Add Product</button>
       </form>
     );
+  }
+}
+
+async function graphQLFetch(query, variables = {}) {
+  try {
+    const response = await fetch(window.ENV.UI_API_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query, variables }),
+    });
+    const body = await response.text();
+    const result = JSON.parse(body);
+
+    if (result.errors) {
+      const error = result.errors[0];
+      if (error.extensions.code === 'BAD_USER_INPUT') {
+        const details = error.extensions.exception.errors.join('\n ');
+        alert(`${error.message}:\n ${details}`);
+      } else {
+        alert(`${error.extensions.code}: ${error.message}`);
+      }
+    }
+    return result.data;
+  } catch (e) {
+    alert(`Error in sending data to server: ${e.message}`);
+    return null;
   }
 }
 
@@ -135,15 +161,19 @@ class ProductList extends React.Component {
             }
           }`;
 
-    const response = await fetch(window.ENV.UI_API_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query }),
-    });
+    const data = await graphQLFetch(query);
+    if (data) {
+      this.setState({ products: data.productList });
+    }
+    // const response = await fetch(window.ENV.UI_API_ENDPOINT, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ query }),
+    // });
 
-    const body = await response.text();
-    const result = JSON.parse(body);
-    this.setState({ products: result.data.productList });
+    // const body = await response.text();
+    // const result = JSON.parse(body);
+    // this.setState({ products: result.data.productList });
   }
 
   async createProduct(product) {
@@ -152,12 +182,17 @@ class ProductList extends React.Component {
                 id
             }
           }`;
-    const response = await fetch(window.ENV.UI_API_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query, variables: { product } }),
-    });
-    this.loadData();
+
+    const data = await graphQLFetch(query, { product });
+    if (data) {
+      this.loadData();
+    }
+    // const response = await fetch(window.ENV.UI_API_ENDPOINT, {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ query, variables: { product } }),
+    // });
+    // this.loadData();
   }
 
   render() {
