@@ -165,15 +165,6 @@ class ProductList extends React.Component {
     if (data) {
       this.setState({ products: data.productList });
     }
-    // const response = await fetch(window.ENV.UI_API_ENDPOINT, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ query }),
-    // });
-
-    // const body = await response.text();
-    // const result = JSON.parse(body);
-    // this.setState({ products: result.data.productList });
   }
 
   async createProduct(product) {
@@ -187,12 +178,6 @@ class ProductList extends React.Component {
     if (data) {
       this.loadData();
     }
-    // const response = await fetch(window.ENV.UI_API_ENDPOINT, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ query, variables: { product } }),
-    // });
-    // this.loadData();
   }
 
   render() {
