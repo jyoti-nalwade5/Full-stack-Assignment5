@@ -1,11 +1,11 @@
-/* globals React PropTypes */
+import React from 'react';
 
 const buttonStyle = {
     color: 'black',
     background: 'rgb(242, 245, 244)',
     alignContent: 'center',
   };
-  
+
 export default class ProductAdd extends React.Component {
     constructor() {
       super();

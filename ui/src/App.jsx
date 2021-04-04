@@ -1,8 +1,10 @@
 /* eslint linebreak-style: ["error", "windows"] */
-/* globals React ReactDOM  */
-// eslint-disable-next-line react/prefer-stateless-function
-
+import 'babel-polyfill';
+import 'whatwg-fetch';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import ProductList from './ProductList.jsx';
 
 const element = <ProductList />;
+
 ReactDOM.render(element, document.getElementById('contents'));

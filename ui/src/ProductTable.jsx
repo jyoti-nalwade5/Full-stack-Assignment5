@@ -1,4 +1,4 @@
-/* globals React */
+import React from 'react';
 
 function ProductRow({ product }) {
     return (
