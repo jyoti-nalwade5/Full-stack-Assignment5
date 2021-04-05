@@ -10,6 +10,7 @@ function ProductRow({ product }) {
         </td>
         <td>{product.category}</td>
         <td><a href={product.imageUrl} target="_blank" rel="noopener noreferrer">View</a></td>
+        <td><a href={`/#/edit/${product.id}`}>Edit</a></td>
       </tr>
     );
   }
@@ -27,6 +28,7 @@ function ProductRow({ product }) {
             <th>Price</th>
             <th>Category</th>
             <th>Image</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
