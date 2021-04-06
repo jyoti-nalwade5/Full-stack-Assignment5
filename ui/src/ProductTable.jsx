@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function ProductRow({ product }) {
     return (
@@ -10,7 +11,8 @@ function ProductRow({ product }) {
         </td>
         <td>{product.category}</td>
         <td><a href={product.imageUrl} target="_blank" rel="noopener noreferrer">View</a></td>
-        <td><a href={`/#/edit/${product.id}`}>Edit</a></td>
+        <td><Link to={`/view/${encodeURIComponent(product.imageUrl)}`}>ViewImage</Link></td>
+        <td><Link to={`/edit/${product.id}`}>Edit</Link></td>
       </tr>
     );
   }
@@ -28,6 +30,7 @@ function ProductRow({ product }) {
             <th>Price</th>
             <th>Category</th>
             <th>Image</th>
+            <th>ViewImage</th>
             <th>Action</th>
           </tr>
         </thead>
