@@ -9,6 +9,7 @@ export default class ProductList extends React.Component {
       super();
       this.state = { products: [] };
       this.createProduct = this.createProduct.bind(this);
+      this.deleteProduct = this.deleteProduct.bind(this);
     }
   
     componentDidMount() {
@@ -45,6 +46,18 @@ export default class ProductList extends React.Component {
       }
     }
   
+    async deleteProduct(id) {
+      const query = `mutation deleteProduct($id: Int!) {
+        deleteProduct(id: $id)
+      }`;
+
+      const data = await graphQLFetch(query, { id });
+      if (data) {
+        alert('Product deleted product successfully!'); // eslint-disable-line no-alert
+        this.loadData();
+      }
+    }
+
     render() {
       const { products } = this.state;
       return (
@@ -52,7 +65,10 @@ export default class ProductList extends React.Component {
           <h1>My Company Inventory</h1>
           <p>Showing all available products</p>
           <hr />
-          <ProductTable products={products} />
+          <ProductTable 
+          products={products} 
+          deleteProduct={this.deleteProduct}
+          />
           <br />
           <p>Add a new product to inventory</p>
           <hr />

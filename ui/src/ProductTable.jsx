@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
-function ProductRow({ product }) {
-    return (
+const ProductRow = withRouter(({ product, deleteProduct, index }) => (
+    
       <tr>
         <td>{product.name}</td>
         <td>
@@ -13,13 +13,18 @@ function ProductRow({ product }) {
         <td><a href={product.imageUrl} target="_blank" rel="noopener noreferrer">View</a></td>
         <td><Link to={`/view/${encodeURIComponent(product.imageUrl)}`}>ViewImage</Link></td>
         <td><Link to={`/edit/${product.id}`}>Edit</Link></td>
+        <td><button type="button" onClick={() => { deleteProduct(index); }}>Delete</button></td>
       </tr>
-    );
-  }
+  ));
   
-  export default function ProductTable({ products }) {
+  export default function ProductTable({ products, deleteProduct }) {
     const productRows = products.map(product => (
-      <ProductRow key={product.id} product={product} />
+      <ProductRow
+      key={product.id}
+      product={product}
+      deleteProduct={deleteProduct}
+      index={product.id}
+    />
     ));
   
     return (
@@ -32,6 +37,7 @@ function ProductRow({ product }) {
             <th>Image</th>
             <th>ViewImage</th>
             <th>Action</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>

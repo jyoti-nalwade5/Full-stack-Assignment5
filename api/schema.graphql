@@ -33,6 +33,7 @@ input ProductUpdateInputs{
 type Mutation {
     addProduct(product: ProductInputs!): Product!
     updateProduct(id: Int!, changes: ProductUpdateInputs!): Product!
+    deleteProduct(id: Int!): Boolean!
 }
 
 type Query {
