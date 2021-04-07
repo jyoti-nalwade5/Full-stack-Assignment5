@@ -23,8 +23,16 @@ input ProductInputs {
     imageUrl: String
 }
 
+input ProductUpdateInputs{
+    category: CategoryType!
+    name: String!
+    pricePerUnit: Float
+    imageUrl: String
+}
+
 type Mutation {
     addProduct(product: ProductInputs!): Product!
+    updateProduct(id: Int!, changes: ProductUpdateInputs!): Product!
 }
 
 type Query {
