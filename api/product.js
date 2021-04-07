@@ -7,6 +7,12 @@ async function list() {
     return products;
 }
 
+async function get(_, { id }) {
+  const db = getDb();
+  const product = await db.collection('products').findOne({ id });
+  return product;
+}
+
 async function add(_, { product }) {
     const db = getDb();
     const newProduct = Object.assign({}, product);
@@ -17,4 +23,4 @@ async function add(_, { product }) {
     return savedProduct;
 }
 
-module.exports = { list, add };
+module.exports = { list, add, get };

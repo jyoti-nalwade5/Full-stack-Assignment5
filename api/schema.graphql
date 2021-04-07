@@ -29,4 +29,5 @@ type Mutation {
 
 type Query {
     productList: [Product!]!
+    product(id: Int!): Product!
 }
