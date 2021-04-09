@@ -31,6 +31,13 @@ const productsDB = [
     category: 'Shirts',
     imageUrl: 'https://media.tractorsupply.com/is/image/TractorSupplyCompany/1497240?$456$',
   },
+  {
+    id: 3,
+    name: 'Necklace',
+    pricePerUnit: 33,
+    category: 'Accessories',
+    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpT5Z2blsOg1hCrHiUcHiVPjusUzfOTuc6Aw&usqp=CAU',
+  },
 ];
 
 db.products.insertMany(productsDB);

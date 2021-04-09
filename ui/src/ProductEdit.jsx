@@ -1,3 +1,4 @@
+/* eslint linebreak-style: ["error", "windows"] */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import NumInput from './NumInput.jsx';
@@ -34,6 +35,7 @@ export default class ProductEdit extends React.Component {
       product: { ...prevState.product, [name]: value },
     }));
   }
+
   async handleSubmit(e) {
     e.preventDefault();
     const { product } = this.state;
@@ -59,7 +61,7 @@ export default class ProductEdit extends React.Component {
       alert('Updated Product Successfully'); // eslint-disable-line no-alert
     }
   }
-  
+
   async loadData() {
     const query = `query product($id: Int!) {
       product(id: $id) {
@@ -69,8 +71,7 @@ export default class ProductEdit extends React.Component {
     }`;
     const { match: { params: { id } } } = this.props;
     const data = await graphQLFetch(query, { id });
-    this.setState({ product: data ? data.product : {}, invalidFields: {} });
-    
+    this.setState({ product: data.product });
   }
 
   render() {
@@ -84,41 +85,43 @@ export default class ProductEdit extends React.Component {
     }
 
     const {
-        product: {name, pricePerUnit, category, imageUrl}
+      product: {
+        name, pricePerUnit, category, imageUrl,
+      },
     } = this.state;
-    
+
     return (
       <form onSubmit={this.handleSubmit}>
         <h3>{`Editing product: ${id}`}</h3>
         <table>
           <tbody>
             <tr>
-            <td>Product Name:</td>
-                <td>
-                <TextInput 
-                name="name" 
-                value={name} 
-                onChange={this.onChange} 
-                key={id} 
+              <td>Product Name:</td>
+              <td>
+                <TextInput
+                  name="name"
+                  value={name}
+                  onChange={this.onChange}
+                  key={id}
                 />
-                </td>
+              </td>
             </tr>
             <tr>
               <td>Category:</td>
               <td>
-              <select name="category" value={category} onChange={this.onChange}>
-                    <option value="Shirts">Shirts</option>
-                    <option value="Jeans">Jeans</option>
-                    <option value="Jackets">Jackets</option>
-                    <option value="Sweaters">Sweaters</option>
-                    <option value="Accessories">Accessories</option>
-              </select>
+                <select name="category" value={category} onChange={this.onChange}>
+                  <option value="Shirts">Shirts</option>
+                  <option value="Jeans">Jeans</option>
+                  <option value="Jackets">Jackets</option>
+                  <option value="Sweaters">Sweaters</option>
+                  <option value="Accessories">Accessories</option>
+                </select>
               </td>
             </tr>
             <tr>
               <td>Price Per Unit:</td>
               <td>
-              <NumInput
+                <NumInput
                   name="pricePerUnit"
                   value={pricePerUnit}
                   onChange={this.onChange}
@@ -129,8 +132,8 @@ export default class ProductEdit extends React.Component {
             <tr>
               <td>Image:</td>
               <td>
-              <TextInput
-                  name="imageurl"
+                <TextInput
+                  name="imageUrl"
                   value={imageUrl}
                   onChange={this.onChange}
                   key={id}

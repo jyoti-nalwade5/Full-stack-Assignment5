@@ -2,9 +2,9 @@
 const { getDb, getNextSequence } = require('./db.js');
 
 async function list() {
-    const db = getDb();
-    const products = await db.collection('products').find({}).toArray();
-    return products;
+  const db = getDb();
+  const products = await db.collection('products').find({}).toArray();
+  return products;
 }
 
 async function get(_, { id }) {
@@ -14,13 +14,13 @@ async function get(_, { id }) {
 }
 
 async function add(_, { product }) {
-    const db = getDb();
-    const newProduct = Object.assign({}, product);
-    newProduct.id = await getNextSequence('products');
-    const result = await db.collection('products').insertOne(newProduct);
-    const savedProduct = await db.collection('products')
-      .findOne({ _id: result.insertedId });
-    return savedProduct;
+  const db = getDb();
+  const newProduct = Object.assign({}, product);
+  newProduct.id = await getNextSequence('products');
+  const result = await db.collection('products').insertOne(newProduct);
+  const savedProduct = await db.collection('products')
+    .findOne({ _id: result.insertedId });
+  return savedProduct;
 }
 
 async function update(_, { id, changes }) {
@@ -47,4 +47,6 @@ async function remove(_, { id }) {
   return false;
 }
 
-module.exports = { list, add, get, update, remove };
+module.exports = {
+  list, add, get, update, remove,
+};
