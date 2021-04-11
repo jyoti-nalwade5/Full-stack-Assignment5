@@ -1,7 +1,7 @@
 {
-  "name": "cs648-assignment4",
+  "name": "cs648-assignment5",
   "version": "1.0.0",
-  "description": "forth assignment-api",
+  "description": "fifth assignment-api",
   "main": "index.js",
   "scripts": {
     "start": "nodemon -e js,graphql -w . -w .env server.js",

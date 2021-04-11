@@ -1,7 +1,7 @@
 {
-  "name": "cs648-assignment4",
+  "name": "cs648-assignment5",
   "version": "1.0.0",
-  "description": "forth assignment-ui",
+  "description": "fifth assignment-ui",
   "main": "index.js",
   "scripts": {
     "#start": "UI server. HMR is enabled in dev mode.",
